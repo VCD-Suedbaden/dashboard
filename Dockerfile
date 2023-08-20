@@ -1,11 +1,11 @@
 # build environment
-FROM node:13.12.0-alpine as build
+FROM node:20-slim as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
-RUN npm install -g --silent
 COPY . ./
-RUN npm run build
+RUN npm i -g pnpm
+RUN pnpm install
+RUN pnpm run build
 
 # production environment
 FROM nginx:stable-alpine
